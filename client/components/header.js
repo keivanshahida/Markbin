@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Accounts from './accounts';
+import { Link, browserHistory } from 'react-router';
 
 import { Bins } from '../../imports/collections/bins';
 
@@ -9,14 +10,16 @@ class Header extends Component {
 
 		event.preventDefault();
 
-		Meteor.call('bins.insert');
+		Meteor.call('bins.insert', (error, binId) => {
+			browserHistory.push(`/bins/${binId}`);
+		});
 	}
 
 	render() {
 		return (
 			<nav className="nav navbar-default">
 				<div className="navbar-header">
-				<a className="navbar-brand">MarkBin</a>
+				<Link to="/" className="navbar-brand">MarkBin</Link>
 				</div>
 				<ul className="nav navbar-nav">
 					<li>
